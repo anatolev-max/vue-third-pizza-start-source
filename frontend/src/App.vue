@@ -1,18 +1,14 @@
-<script>
-import {defineComponent} from 'vue';
-import {AppLayout}       from '@/layouts';
-import {HomeView}        from '@/views';
-
-export default defineComponent({
-    components: {HomeView, AppLayout}
-})
-</script>
-
 <template>
     <app-layout>
         <home-view/>
     </app-layout>
 </template>
 
-<style>
+<script setup>
+import AppLayout from '@/layouts/AppLayout.vue';
+import HomeView  from '@/views/HomeView.vue';
+</script>
+
+<style lang="scss">
+@import "@/assets/scss/app.scss";
 </style>

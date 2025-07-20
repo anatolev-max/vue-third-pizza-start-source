@@ -1,1 +1,2 @@
-export { default as HomeView } from './HomeView.vue';
+// TODO: unused export
+// export { default as HomeView } from '@/views/HomeView.vue';
