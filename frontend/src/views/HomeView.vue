@@ -24,6 +24,10 @@
                                     :value="doughType.value"
                                     checked
                                 >
+                                <img
+                                    :src="getImage(doughType.image)"
+                                    :alt="doughType.name"
+                                >
                                 <b>{{ doughType.name }}</b>
                                 <span>{{ doughType.description }}</span>
                             </label>
@@ -89,7 +93,13 @@
                                         <span
                                             class="filling"
                                             :class="`filling--${ingredientType.value}`"
-                                        >{{ ingredientType.name }}</span>
+                                        >
+                                            <img
+                                                :src="getImage(ingredientType.image)"
+                                                :alt="ingredientType.name"
+                                            >
+                                            {{ ingredientType.name }}
+                                        </span>
 
                                         <div class="counter counter--orange ingredients__counter">
                                             <button
@@ -164,6 +174,13 @@ const doughItems = doughJSON.map(normalizeDough);
 const ingredientItems = ingredientsJSON.map(normalizeIngredients);
 const sauceItems = saucesJSON.map(normalizeSauces);
 const sizeItems = sizesJSON.map(normalizeSize);
+
+const getImage = (image) => {
+    // TODO: why don't work?
+    // https://vitejs.dev/guide/assets.html#new-url-url-import-meta-url
+    // return new URL(`../assets/img/${image}`, import.meta.url).href;
+    return `/src/assets/img/${image}`;
+};
 
 </script>
 
