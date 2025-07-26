@@ -1,8 +1,9 @@
-version: '3'
+name: vue-pizza
 
 services:
   db:
     image: postgres
+    container_name: vue-pizza-db
     environment:
       POSTGRES_HOST_AUTH_METHOD: 'trust'
       POSTGRES_USER: ${POSTGRES_USER:-postgres}
@@ -13,6 +14,7 @@ services:
 
   backend:
     build: backend
+    container_name: vue-pizza-backend
     command: npm start
     volumes:
       - ./backend:/src/backend
@@ -25,6 +27,7 @@ services:
   frontend:
     build:
       context: ./frontend
+    container_name: vue-pizza-frontend
 #    https://github: com/vitejs/vite/issues/2671#issuecomment-829535806:
     command: sh -c "npm rebuild esbuild && npm run dev"
     environment:
