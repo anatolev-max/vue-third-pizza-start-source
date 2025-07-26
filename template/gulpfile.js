@@ -133,7 +133,7 @@ gulp.task('serve', function () {
     open: true,
     cors: true,
     ui: false,
-    port: 9999,
+    port: 9992,
   });
 
   gulp.watch('src/img/**/*', gulp.series('images', 'refresh'));
