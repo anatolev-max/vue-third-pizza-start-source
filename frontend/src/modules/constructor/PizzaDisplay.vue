@@ -16,10 +16,13 @@
             >
                 <div class="pizza__wrapper">
                     <div
-                        v-for="ingredient in ingredients"
-                        :key="ingredient.id"
+                        v-for="{id, value, count} in ingredients"
+                        :key="id"
                         class="pizza__filling"
-                        :class="`pizza__filling--${ingredient.value}`"
+                        :class="{
+                            [`pizza__filling--${value}`]:                            true,
+                            [`pizza__filling--${count === 2 ? 'second' : 'third'}`]: count > 1,
+                        }"
                     ></div>
                 </div>
             </div>
