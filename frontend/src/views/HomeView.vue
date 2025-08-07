@@ -20,6 +20,7 @@
                 <ingredient-selection
                     :sauce-items="sauceItems"
                     :ingredient-items="ingredientItems"
+                    :ingredients="state.pizza.ingredients"
                     @change-sauce="sauceChangeHandler"
                     @add-ingredient="addIngredientHandler"
                 ></ingredient-selection>
@@ -36,6 +37,7 @@
 
 <script setup>
 import {reactive}                                                             from 'vue';
+import {MAX_INGREDIENT_COUNT}                                                 from '@/common/constants.js';
 import doughSizes                                                             from '@/common/enums/doughSizes.js';
 import sauces                                                                 from '@/common/enums/sauces.js';
 import sizes                                                                  from '@/common/enums/sizes.js';
@@ -59,22 +61,38 @@ const state = reactive({
     pizza: {
         dough:       sizes[3],
         diameter:    null,
-        ingredients: [],
+        ingredients: {},
         sauce:       sauces[2],
     }
 });
 
 // 5. methods
 /**
- * @param value
+ * @param ingredient
  */
-const addIngredientHandler = (value) => {
+const addIngredientHandler = (ingredient) => {
+    let count = 1;
+    const existIngredient = state.pizza.ingredients[ingredient.value] ?? null;
+
+    if (existIngredient) {
+        if (existIngredient.count === MAX_INGREDIENT_COUNT) {
+            return;
+        }
+
+        count = ++existIngredient.count;
+    }
+
+    const payload = {
+        ...ingredient,
+        count
+    };
+
     state.pizza = {
         ...state.pizza,
-        ingredients: [
+        ingredients: {
             ...state.pizza.ingredients,
-            value
-        ],
+            [ingredient.value]: payload
+        },
     };
 };
 

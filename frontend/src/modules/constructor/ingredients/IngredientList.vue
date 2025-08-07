@@ -28,7 +28,7 @@
                     class="counter__input"
                     type="text"
                     name="counter"
-                    value="0"
+                    :value="ingredients[ingredientType.value]?.count ?? 0"
                 >
                 <button
                     class="counter__button counter__button--plus"
@@ -50,7 +50,11 @@ const props = defineProps({
     ingredientItems: {
         type:     Array,
         required: true
-    }
+    },
+    ingredients: {
+        type:     Object,
+        required: true
+    },
 });
 
 // 3. emits

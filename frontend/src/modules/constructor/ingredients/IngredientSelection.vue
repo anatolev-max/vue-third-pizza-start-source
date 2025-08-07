@@ -14,6 +14,7 @@
 
                     <ingredient-list
                         :ingredient-items="ingredientItems"
+                        :ingredients="ingredients"
                         @add-ingredient="$emit('addIngredient', $event)"
                     ></ingredient-list>
                 </div>
@@ -30,6 +31,10 @@ import SauceSelection from '@/modules/constructor/ingredients/SauceSelection.vue
 const props = defineProps({
     ingredientItems: {
         type:     Array,
+        required: true
+    },
+    ingredients: {
+        type:     Object,
         required: true
     },
     sauceItems: {

@@ -44,7 +44,7 @@ const props = defineProps({
         required: true
     },
     ingredients: {
-        type:     Array,
+        type:     Object,
         required: true
     },
     sauce: {
