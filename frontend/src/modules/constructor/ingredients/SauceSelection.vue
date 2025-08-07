@@ -10,8 +10,9 @@
             <input
                 type="radio"
                 name="sauce"
-                :value="sauceType.value"
                 checked
+                :value="sauceType.value"
+                @change="$emit('changeSauce', sauceType.value)"
             >
             <span>{{ sauceType.name }}</span>
         </label>
@@ -26,6 +27,12 @@ const props = defineProps({
         required: true
     }
 });
+
+// 3. emits
+const emits = defineEmits([
+    'changeSauce',
+]);
+
 </script>
 
 <style scoped lang="scss">

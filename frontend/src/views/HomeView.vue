@@ -9,6 +9,7 @@
 
                 <dought-selection
                     :dough-items="doughItems"
+                    @change-dough="doughChangeHandler"
                 ></dought-selection>
 
                 <diameter-selection
@@ -18,29 +19,61 @@
                 <ingredient-selection
                     :sauce-items="sauceItems"
                     :ingredient-items="ingredientItems"
+                    @change-sauce="sauceChangeHandler"
                 ></ingredient-selection>
 
-                <pizza-display/>
+                <pizza-display
+                    :dough="state.pizza.dough"
+                    :sauce="state.pizza.sauce"
+                />
             </div>
         </form>
     </main>
 </template>
 
 <script setup>
+import {reactive}                                                             from 'vue';
+import doughSizes                                                             from '@/common/data/doughSizes';
+import sauces                                                                 from '@/common/data/sauces';
 import {normalizeDough, normalizeIngredients, normalizeSauces, normalizeSize} from '@/common/normalize.js';
 import doughJSON                                                              from '@/mocks/dough.json';
 import ingredientsJSON                                                        from '@/mocks/ingredients.json';
 import saucesJSON                                                             from '@/mocks/sauces.json';
 import sizesJSON                                                              from '@/mocks/sizes.json';
 import DiameterSelection                                                      from "@/modules/constructor/DiameterSelection.vue";
-import DoughtSelection                                                        from "@/modules/constructor/DoughtSelection.vue";
-import IngredientSelection                                                    from "@/modules/constructor/IngredientSelection.vue";
+import DoughtSelection                                                        from "@/modules/constructor/DoughSelection.vue";
+import IngredientSelection                                                    from "@/modules/constructor/ingredients/IngredientSelection.vue";
 import PizzaDisplay                                                           from "@/modules/constructor/PizzaDisplay.vue";
 
 const doughItems = doughJSON.map(normalizeDough);
 const ingredientItems = ingredientsJSON.map(normalizeIngredients);
 const sauceItems = saucesJSON.map(normalizeSauces);
 const sizeItems = sizesJSON.map(normalizeSize);
+
+// 2. data
+const state = reactive({
+    pizza: {
+        dough:       'big',
+        diameter:    {},
+        ingredients: [],
+        sauce:       sauces[2],
+    }
+});
+
+// 5. methods
+const doughChangeHandler = (value) => {
+    state.pizza = {
+        ...state.pizza,
+        dough: value === doughSizes[2] ? 'big' : 'small'
+    };
+};
+
+const sauceChangeHandler = (value) => {
+    state.pizza = {
+        ...state.pizza,
+        sauce: value
+    };
+};
 
 </script>
 

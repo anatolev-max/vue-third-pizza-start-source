@@ -13,8 +13,9 @@
                         class="visually-hidden"
                         type="radio"
                         name="dought"
-                        :value="doughType.value"
                         checked
+                        :value="doughType.value"
+                        @change="$emit('changeDough', doughType.value)"
                     >
                     <img
                         :src="getImage(doughType.image)"
@@ -38,6 +39,12 @@ const props = defineProps({
         required: true
     }
 });
+
+// 3. emits
+const emits = defineEmits([
+    'changeDough',
+]);
+
 </script>
 
 <style scoped lang="scss">

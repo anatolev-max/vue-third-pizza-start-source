@@ -6,6 +6,7 @@
             <div class="sheet__content ingredients">
                 <sauce-selection
                     :sauce-items="sauceItems"
+                    @change-sauce="$emit('changeSauce', $event)"
                 ></sauce-selection>
 
                 <div class="ingredients__filling">
@@ -21,8 +22,8 @@
 </template>
 
 <script setup>
-import SauceSelection from '@/modules/constructor/SauceSelection.vue';
-import IngredientList from "@/modules/constructor/IngredientList.vue";
+import IngredientList from '@/modules/constructor/ingredients/IngredientList.vue';
+import SauceSelection from '@/modules/constructor/ingredients/SauceSelection.vue';
 
 // 1. props
 const props = defineProps({
@@ -35,6 +36,12 @@ const props = defineProps({
         required: true
     }
 });
+
+// 3. emits
+const emits = defineEmits([
+    'changeSauce',
+]);
+
 </script>
 
 <style scoped lang="scss">
