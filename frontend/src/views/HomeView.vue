@@ -14,16 +14,19 @@
 
                 <diameter-selection
                     :size-items="sizeItems"
+                    @change-diameter="diameterChangeHandler"
                 ></diameter-selection>
 
                 <ingredient-selection
                     :sauce-items="sauceItems"
                     :ingredient-items="ingredientItems"
                     @change-sauce="sauceChangeHandler"
+                    @add-ingredient="addIngredientHandler"
                 ></ingredient-selection>
 
                 <pizza-display
                     :dough="state.pizza.dough"
+                    :ingredients="state.pizza.ingredients"
                     :sauce="state.pizza.sauce"
                 />
             </div>
@@ -33,8 +36,9 @@
 
 <script setup>
 import {reactive}                                                             from 'vue';
-import doughSizes                                                             from '@/common/data/doughSizes';
-import sauces                                                                 from '@/common/data/sauces';
+import doughSizes                                                             from '@/common/enums/doughSizes.js';
+import sauces                                                                 from '@/common/enums/sauces.js';
+import sizes                                                                  from '@/common/enums/sizes.js';
 import {normalizeDough, normalizeIngredients, normalizeSauces, normalizeSize} from '@/common/normalize.js';
 import doughJSON                                                              from '@/mocks/dough.json';
 import ingredientsJSON                                                        from '@/mocks/ingredients.json';
@@ -53,21 +57,50 @@ const sizeItems = sizesJSON.map(normalizeSize);
 // 2. data
 const state = reactive({
     pizza: {
-        dough:       'big',
-        diameter:    {},
+        dough:       sizes[3],
+        diameter:    null,
         ingredients: [],
         sauce:       sauces[2],
     }
 });
 
 // 5. methods
-const doughChangeHandler = (value) => {
+/**
+ * @param value
+ */
+const addIngredientHandler = (value) => {
     state.pizza = {
         ...state.pizza,
-        dough: value === doughSizes[2] ? 'big' : 'small'
+        ingredients: [
+            ...state.pizza.ingredients,
+            value
+        ],
     };
 };
 
+/**
+ * @param value
+ */
+const diameterChangeHandler = (value) => {
+    state.pizza = {
+        ...state.pizza,
+        diameter: value
+    };
+};
+
+/**
+ * @param value
+ */
+const doughChangeHandler = (value) => {
+    state.pizza = {
+        ...state.pizza,
+        dough: value === doughSizes[2] ? sizes[3] : sizes[1]
+    };
+};
+
+/**
+ * @param value
+ */
 const sauceChangeHandler = (value) => {
     state.pizza = {
         ...state.pizza,

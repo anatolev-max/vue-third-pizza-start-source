@@ -15,9 +15,12 @@
                 :class="`pizza--foundation--${dough}-${sauce}`"
             >
                 <div class="pizza__wrapper">
-<!--                    <div class="pizza__filling pizza__filling&#45;&#45;ananas"></div>-->
-<!--                    <div class="pizza__filling pizza__filling&#45;&#45;bacon"></div>-->
-<!--                    <div class="pizza__filling pizza__filling&#45;&#45;cheddar"></div>-->
+                    <div
+                        v-for="ingredient in ingredients"
+                        :key="ingredient.id"
+                        class="pizza__filling"
+                        :class="`pizza__filling--${ingredient.value}`"
+                    ></div>
                 </div>
             </div>
         </div>
@@ -38,6 +41,10 @@
 const props = defineProps({
     dough: {
         type:     String,
+        required: true
+    },
+    ingredients: {
+        type:     Array,
         required: true
     },
     sauce: {

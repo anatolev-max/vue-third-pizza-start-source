@@ -33,6 +33,7 @@
                 <button
                     class="counter__button counter__button--plus"
                     type="button"
+                    @click="$emit('addIngredient', ingredientType)"
                 >
                     <span class="visually-hidden">Больше</span>
                 </button>
@@ -51,6 +52,12 @@ const props = defineProps({
         required: true
     }
 });
+
+// 3. emits
+const emits = defineEmits([
+    'addIngredient',
+]);
+
 </script>
 
 <style scoped lang="scss">

@@ -1,7 +1,7 @@
-import doughSizes  from '@/common/data/doughSizes';
-import ingredients from '@/common/data/ingredients';
-import sauces      from '@/common/data/sauces';
-import sizes       from '@/common/data/sizes';
+import doughSizes  from '@/common/enums/doughSizes.js';
+import ingredients from '@/common/enums/ingredients.js';
+import sauces      from '@/common/enums/sauces.js';
+import sizes       from '@/common/enums/sizes.js';
 
 const normalize = (data, item) => {
     return {

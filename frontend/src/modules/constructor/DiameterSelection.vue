@@ -15,6 +15,7 @@
                         type="radio"
                         name="diameter"
                         :value="sizeType.value"
+                        @change="$emit('changeDiameter', sizeType.value)"
                     >
                     <span>{{ sizeType.name }}</span>
                 </label>
@@ -31,6 +32,11 @@ const props = defineProps({
         required: true
     }
 });
+
+// 3. emits
+const emits = defineEmits([
+    'changeDiameter',
+]);
 
 </script>
 

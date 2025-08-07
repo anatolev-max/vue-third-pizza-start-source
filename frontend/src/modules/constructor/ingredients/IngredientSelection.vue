@@ -14,6 +14,7 @@
 
                     <ingredient-list
                         :ingredient-items="ingredientItems"
+                        @add-ingredient="$emit('addIngredient', $event)"
                     ></ingredient-list>
                 </div>
             </div>
@@ -39,6 +40,7 @@ const props = defineProps({
 
 // 3. emits
 const emits = defineEmits([
+    'addIngredient',
     'changeSauce',
 ]);
 
