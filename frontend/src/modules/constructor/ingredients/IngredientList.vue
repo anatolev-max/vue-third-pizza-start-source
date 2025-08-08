@@ -20,7 +20,8 @@
                 <button
                     class="counter__button counter__button--minus"
                     type="button"
-                    disabled
+                    :disabled="!ingredients[ingredientType.value]?.count"
+                    @click="$emit('removeIngredient', ingredientType)"
                 >
                     <span class="visually-hidden">Меньше</span>
                 </button>
@@ -33,6 +34,7 @@
                 <button
                     class="counter__button counter__button--plus"
                     type="button"
+                    :disabled="ingredients[ingredientType.value]?.count === MAX_INGREDIENT_COUNT"
                     @click="$emit('addIngredient', ingredientType)"
                 >
                     <span class="visually-hidden">Больше</span>
@@ -43,7 +45,8 @@
 </template>
 
 <script setup>
-import {getImage} from '@/common/helpers.js';
+import {getImage}             from '@/common/helpers.js';
+import {MAX_INGREDIENT_COUNT} from "@/common/constants.js";
 
 // 1. props
 const props = defineProps({
@@ -60,6 +63,7 @@ const props = defineProps({
 // 3. emits
 const emits = defineEmits([
     'addIngredient',
+    'removeIngredient',
 ]);
 
 </script>

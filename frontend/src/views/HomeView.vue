@@ -22,7 +22,8 @@
                     :ingredient-items="ingredientItems"
                     :ingredients="state.pizza.ingredients"
                     @change-sauce="sauceChangeHandler"
-                    @add-ingredient="addIngredientHandler"
+                    @add-ingredient="updateIngredientHandler($event, false)"
+                    @remove-ingredient="updateIngredientHandler($event, true)"
                 ></ingredient-selection>
 
                 <pizza-display
@@ -37,7 +38,7 @@
 
 <script setup>
 import {reactive}                                                             from 'vue';
-import {MAX_INGREDIENT_COUNT}                                                 from '@/common/constants.js';
+import {MAX_INGREDIENT_COUNT, MIN_INGREDIENT_COUNT}                           from '@/common/constants.js';
 import doughSizes                                                             from '@/common/enums/doughSizes.js';
 import sauces                                                                 from '@/common/enums/sauces.js';
 import sizes                                                                  from '@/common/enums/sizes.js';
@@ -69,17 +70,20 @@ const state = reactive({
 // 5. methods
 /**
  * @param ingredient
+ * @param removeMode
  */
-const addIngredientHandler = (ingredient) => {
+const updateIngredientHandler = (ingredient, removeMode) => {
     let count = 1;
     const existIngredient = state.pizza.ingredients[ingredient.value] ?? null;
 
     if (existIngredient) {
-        if (existIngredient.count === MAX_INGREDIENT_COUNT) {
+        if (existIngredient.count === (removeMode ? MIN_INGREDIENT_COUNT : MAX_INGREDIENT_COUNT)) {
             return;
         }
 
-        count = ++existIngredient.count;
+        count = removeMode
+            ? --existIngredient.count
+            : ++existIngredient.count;
     }
 
     const payload = {
@@ -94,6 +98,10 @@ const addIngredientHandler = (ingredient) => {
             [ingredient.value]: payload
         },
     };
+
+    if (removeMode && existIngredient.count === MIN_INGREDIENT_COUNT) {
+        delete state.pizza.ingredients[ingredient.value];
+    }
 };
 
 /**
