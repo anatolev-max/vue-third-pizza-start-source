@@ -27,6 +27,7 @@
                 ></ingredient-selection>
 
                 <pizza-display
+                    :add-ingredient-handler="updateIngredientHandler"
                     :dough="state.pizza.dough"
                     :ingredients="state.pizza.ingredients"
                     :sauce="state.pizza.sauce"

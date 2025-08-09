@@ -10,22 +10,25 @@
 </template>
 
 <script setup>
-import {DATA_TRANSFER_PAYLOAD} from "@/common/constants/index.js";
+import {DATA_TRANSFER_KEY} from '../constants/index.js';
 
 const props = defineProps({
     draggable: {
         type:    Boolean,
         default: false,
     },
-    dataTransfer: {
+    transferData: {
         type:     Object,
         required: true,
     },
 });
 
-const onDragStart = ({dataTransfer}) => {
-    const data = JSON.stringify(props.dataTransfer);
-    dataTransfer.setData(DATA_TRANSFER_PAYLOAD, data);
+/**
+ * @param evt
+ */
+const onDragStart = (evt) => {
+    const data = JSON.stringify(props.transferData);
+    evt.dataTransfer.setData(DATA_TRANSFER_KEY, data);
 };
 </script>
 

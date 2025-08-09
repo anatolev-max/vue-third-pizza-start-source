@@ -14,17 +14,19 @@
                 class="pizza"
                 :class="`pizza--foundation--${dough}-${sauce}`"
             >
-                <div class="pizza__wrapper">
-                    <div
-                        v-for="{id, value, count} in ingredients"
-                        :key="id"
-                        class="pizza__filling"
-                        :class="{
-                            [`pizza__filling--${value}`]:                            true,
-                            [`pizza__filling--${count === 2 ? 'second' : 'third'}`]: count > 1,
-                        }"
-                    ></div>
-                </div>
+                <app-drop @drop="addIngredientHandler">
+                    <div class="pizza__wrapper">
+                        <div
+                            v-for="{id, value, count} in ingredients"
+                            :key="id"
+                            class="pizza__filling"
+                            :class="{
+                                [`pizza__filling--${value}`]:                            true,
+                                [`pizza__filling--${count === 2 ? 'second' : 'third'}`]: count > 1,
+                            }"
+                        ></div>
+                    </div>
+                </app-drop>
             </div>
         </div>
 
@@ -41,7 +43,13 @@
 
 <script setup>
 // 1. props
+import AppDrop from "@/common/components/AppDrop.vue";
+
 const props = defineProps({
+    addIngredientHandler: {
+        type:     Function,
+        required: true,
+    },
     dough: {
         type:     String,
         required: true

@@ -1,1 +1,1 @@
-export const DATA_TRANSFER_PAYLOAD = "payload";
+export const DATA_TRANSFER_KEY = "payload";

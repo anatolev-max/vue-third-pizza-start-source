@@ -9,21 +9,27 @@
 </template>
 
 <script setup>
-import {DATA_TRANSFER_PAYLOAD} from "@/common/constants/index.js";
+import {DATA_TRANSFER_KEY} from '../constants/index.js';
 
-const emit = defineEmits(["drop"]);
+// 3. emits
+const emit = defineEmits([
+    'drop'
+]);
 
-const onDrop = ({dataTransfer}) => {
-    if (!dataTransfer) {
+// 5. methods
+/**
+ * @param evt
+ */
+const onDrop = (evt) => {
+    if (!evt.dataTransfer) {
         return;
     }
 
-    const payload = dataTransfer.getData(DATA_TRANSFER_PAYLOAD);
+    const payload = evt.dataTransfer.getData(DATA_TRANSFER_KEY);
 
     if (payload) {
-        const transferData = dataTransfer.getData(DATA_TRANSFER_PAYLOAD);
-        const data = JSON.parse(transferData);
-        emit("drop", data);
+        const data = JSON.parse(payload);
+        emit('drop', data);
     }
 };
 </script>
